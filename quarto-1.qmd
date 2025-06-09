@@ -1,5 +1,44 @@
 ---
-title: "Untitled"
+title: "Quarto 1"
+author: "Jamie Seoh"
 format: html
+execute: 
+  echo: false
 ---
 
+```{r}
+suppressPackageStartupMessages(library(tidyverse))
+library(palmerpenguins)
+
+```
+
+
+
+```{r}
+# Cleaned dataset
+data <- penguins %>% 
+  drop_na()  # Remove rows with missing values
+
+# Create the plot
+ggplot(data, aes(x = flipper_length_mm, y = body_mass_g, color = species)) +
+  geom_point(aes(shape = sex), size = 3, alpha = 0.8) +
+  geom_smooth(method = "lm", se = FALSE, linetype = "dashed", linewidth = 0.8) +
+  scale_color_brewer(palette = "Dark2") +
+  labs(
+    title = "Penguin Flipper Length vs Body Mass",
+    subtitle = "Colored by Species and Shaped by Sex",
+    x = "Flipper Length (mm)",
+    y = "Body Mass (g)",
+    color = "Species",
+    shape = "Sex",
+    caption = "Data: palmerpenguins | Plot: tidyverse + ggplot2"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "bold", size = 18),
+    plot.subtitle = element_text(size = 14),
+    legend.position = "bottom"
+  )
+
+
+```
